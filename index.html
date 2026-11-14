@@ -43,7 +43,7 @@
     <h1>Quick App Title</h1>
     <div id="responseContent"></div>
     <div id="submitForm">
-      <form method="post" enctype="multipart/form-data" accept="image/png, image/jpeg">
+      <form id="myForm" method="post" enctype="multipart/form-data" accept="image/png, image/jpeg">
 
         <textarea name="textUpload"></textarea>
 
@@ -58,3 +58,15 @@
     2026 Jeane Ramos
   </footer>
 </html>
+
+<script>
+  console.log('JS loaded.');
+
+  const form = document.querySelector('#myForm');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    console.log('formData', Object.fromEntries(formData));
+  })
+  
+</script>
