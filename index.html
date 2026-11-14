@@ -9,12 +9,15 @@
     width: 80%;
     margin: auto;
     padding: 3rem 0;
+    font-family: system-ui;
   }
   textarea {
     width: -webkit-fill-available;
     height: 100px;
     background-color: black;
     color: white;
+    border-radius: 8px;
+    padding: 1rem;
   }
   .custom-btn {
     background-color: black;
@@ -24,8 +27,11 @@
     border-radius: 4px;
   }
   #responseContent {
-    border: 1px solid #333;
+    border: 2px solid #000;
+    border-radius: 12px;
     height: 400px;
+    background-color: #0c0c0c;
+    padding: 1rem;
   }
   #submitForm {
     padding: 1rem;
@@ -41,11 +47,11 @@
 <html>
   <body>
     <h1>Quick App Title</h1>
-    <div id="responseContent"></div>
+    <div id="responseContent">The response will be displayed here once it's ready.</div>
     <div id="submitForm">
       <form id="myForm" method="post" enctype="multipart/form-data" accept="image/png, image/jpeg">
 
-        <textarea name="textUpload"></textarea>
+        <textarea name="textUpload">Enter your idea about the so and so here...</textarea>
 
         <label for="fileUpload" class="custom-btn">Select img</label>
         <input type="file" id="fileUpload" name="fileUpload"/>
