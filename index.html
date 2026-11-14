@@ -10,13 +10,31 @@
     margin: auto;
     padding: 3rem 0;
   }
+  textarea {
+    width: -webkit-fill-available;
+    height: 100px;
+    background-color: black;
+    color: white;
+  }
+  .custom-btn {
+    background-color: black;
+    color: white;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
   #responseContent {
     border: 1px solid #333;
     height: 400px;
   }
-  #submitInput {
+  #submitForm {
     padding: 1rem;
     justify-self: center;
+    width: 100%;
+  }
+  #fileUpload {display:none;}
+  footer {
+    margin-top: 2rem;
   }
 </style>
 
@@ -24,9 +42,19 @@
   <body>
     <h1>Quick App Title</h1>
     <div id="responseContent"></div>
-    <div id="submitInput">
-      <input type="text"/>
-      <button>Submit!</button>
+    <div id="submitForm">
+      <form method="post" enctype="multipart/form-data" accept="image/png, image/jpeg">
+
+        <textarea name="textUpload"></textarea>
+
+        <label for="fileUpload" class="custom-btn">Select img</label>
+        <input type="file" id="fileUpload" name="fileUpload"/>
+
+        <button type="submit">Submit img!</button>
+      </form>
     </div>
   </body>
+  <footer>
+    2026 Jeane Ramos
+  </footer>
 </html>
