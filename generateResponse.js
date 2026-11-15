@@ -13,4 +13,4 @@ export async function generateResponse (){
   return response.output_text;
 }
 
-//generateResponse();
+generateResponse();

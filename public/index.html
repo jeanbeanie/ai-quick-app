@@ -49,12 +49,20 @@
     <h1>Quick App Title</h1>
     <div id="responseContent">The response will be displayed here once it's ready.</div>
     <div id="submitForm">
-      <form id="myForm" method="post" enctype="multipart/form-data" accept="image/png, image/jpeg">
+      <form 
+        id="myForm" 
+        enctype="multipart/form-data" 
+      >
 
         <textarea name="textUpload">Enter your idea about the so and so here...</textarea>
 
         <label for="fileUpload" class="custom-btn">Select img</label>
-        <input type="file" id="fileUpload" name="fileUpload"/>
+        <input
+          accept="image/png, image/jpeg"
+          type="file" 
+          id="fileUpload" 
+          name="fileUpload"
+        />
 
         <button type="submit">Submit img!</button>
       </form>
@@ -66,13 +74,31 @@
 </html>
 
 <script>
-  console.log('JS loaded.');
+  console.log('JS loaded!');
 
   const form = document.querySelector('#myForm');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // stop page reload
+
+    // grabs all inputs using their 'name'
     const formData = new FormData(form);
     console.log('formData', Object.fromEntries(formData));
+    let response;
+    try {
+      response = await fetch('http://localhost:3000/api/generate-response', {
+        method: 'POST',
+        body: formData
+      });
+    } catch (err) {
+      console.error('Error: ', error);
+    }
+
+    if(response && response.ok){
+      console.log('response from backend: ', response)
+    } else {
+      console.log('Response error :', response)
+    }
   })
   
 </script>
