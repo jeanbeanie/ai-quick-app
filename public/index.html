@@ -86,12 +86,12 @@
     console.log('formData', Object.fromEntries(formData));
     let response;
     try {
-      response = await fetch('http://localhost:3000/api/generate-response', {
+      response = await fetch('/api/generate-response', {
         method: 'POST',
         body: formData
       });
     } catch (err) {
-      console.error('Error: ', error);
+      console.error('Error: ', err);
     }
 
     if(response && response.ok){
