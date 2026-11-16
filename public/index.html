@@ -6,7 +6,8 @@
   body {
     background-color: #111;
     color: #aaa;
-    width: 80%;
+    width: 1130px;
+    max-width:100%;
     margin: auto;
     padding: 3rem 0;
     font-family: system-ui;
@@ -43,7 +44,7 @@
   #fileUploadDisplay {display: inline-flex}
   /*hide default ugly file upload btn*/
   #fileUpload {display:none;}
-
+  #submitBtn {float:right;}
   footer {
     margin-top: 2rem;
   }
@@ -71,7 +72,7 @@
           <p id="fileNameLabel">No file selected</p>
         </div>
 
-        <button class="custom-btn" type="submit">Submit your image!</button>
+        <button class="custom-btn" id="submitBtn" type="submit">Submit your image!</button>
       </form>
     </div>
   </body>
