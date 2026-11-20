@@ -1,5 +1,4 @@
 import OpenAI from 'openai';
-import 'dotenv/config';
 import { readFile } from 'node:fs/promises';
 
 const client = new OpenAI();

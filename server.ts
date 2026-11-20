@@ -1,3 +1,4 @@
+import './env';
 import express, { Request, Response, NextFunction } from 'express';
 import multer from 'multer';
 import generateResponse from './generateResponse';
