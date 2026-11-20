@@ -1,6 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import generateResponse from './generateResponse';
+import { unlink } from 'node:fs/promises';
 
 const app = express();
 
@@ -25,6 +26,8 @@ app.post('/api/generate-response', upload.single('imageInput'), async (req, res)
   } catch (err) {
     console.error(err);
     res.status(500).send('Something went wrong generating the response.');
+  } finally {
+    await unlink(req.file.path).catch(console.error);
   }
 });
 
