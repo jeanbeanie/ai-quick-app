@@ -19,10 +19,13 @@ app.post('/api/generate-response', upload.single('imageInput'), async (req, res)
   }
 
   // call openai model with the img and text
-  const response = await generateResponse(req.file, req.body.textInput);
-
-  // return the model's result as JSON
-  res.send(`Response from OpenAI: ${response}`);
+  try {
+    const text = await generateResponse(req.file, req.body.textInput);
+    res.send(text);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Something went wrong generating the response.');
+  }
 });
 
 app.listen(3000, () => {
