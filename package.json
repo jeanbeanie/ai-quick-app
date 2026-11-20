@@ -1,6 +1,6 @@
 {
   "name": "ai-quick-app",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "type": "module",
   "description": "Send an image and text to an OpenAI vision model and show the answer.",
   "main": "server.ts",
