@@ -12,7 +12,11 @@ app.use(express.static('public'));
 const upload = multer({dest: 'uploads/'})
 
 app.post('/api/generate-response', upload.single('imageInput'), async (req, res) => {
-  console.log('request body', req.body, 'request file', req.file);
+
+  if(!req.file) {
+    res.status(400).send("Please select an image!");
+    return;
+  }
 
   // call openai model with the img and text
   const response = await generateResponse(req.file, req.body.textInput);
