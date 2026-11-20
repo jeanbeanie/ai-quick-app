@@ -3,14 +3,32 @@ import 'dotenv/config';
 
 const client = new OpenAI();
 
-export async function generateResponse (){
-  const response = await client.responses.create({
-    model: "gpt-4o-mini",
-    input: "Write a random testeroo sentence.",
-  })
+export default async function generateResponse (imageUrl, userText){
+  let response;
+  try{
+    response = await client.responses.create({
+      model: "gpt-4o-mini",
+      input: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "input_image",
+              image_url: imageUrl,
+              detail: "auto",
+            },
+            {
+              type: "input_text",
+              text: "What do you see in this image? " + userText,
+            },
+          ],
+        },
+      ],
+    });
 
-  console.log(response.output_text);
-  return response.output_text;
+    return response.output_text;
+  } catch (err) {
+    return `failed to generate response with OpenAI: ${err}`
+  }
 }
 
-generateResponse();

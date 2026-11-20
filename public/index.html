@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Quick App</title>
+
 <style>
   h1 { 
     text-align: center;
@@ -49,8 +55,8 @@
     margin-top: 2rem;
   }
 </style>
+  </head>
 
-<html>
   <body>
     <h1>Quick App Title</h1>
     <div id="responseContent">The response will be displayed here once it's ready.</div>
@@ -106,8 +112,6 @@
     console.log('formData', Object.fromEntries(formData));
 
     // check if inputs are valid, set error msg if not
-
-
     let response;
     try {
       response = await fetch('/api/generate-response', {
@@ -118,12 +122,14 @@
       console.error('Error: ', err);
     }
 
-    if(response && response.ok){
-      // success path
-      console.log('response from backend: ', response)
-    } else {
-      console.log('Response error :', response)
+    let body;
+    try {
+      body = await response.body;
+      console.log('body', body)
+    } catch (err) {
+      console.log('body catch', err)
     }
+
   })
   
 </script>

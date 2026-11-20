@@ -1,5 +1,6 @@
 import express from 'express';
 import multer from 'multer';
+import generateResponse from './generateResponse';
 
 const app = express();
 
@@ -10,11 +11,14 @@ const app = express();
 app.use(express.static('public'));
 const upload = multer({dest: 'uploads/'})
 
-// TODO handle post method for form 
-app.post('/api/generate-response', upload.single('fileUpload'),(req, res) => {
-  console.log('request body', req.body);
+app.post('/api/generate-response', upload.single('fileUpload'), async (req, res) => {
+  console.log('request body', req.body, 'request file', req.file);
 
-  res.send('Form received.');
+  // call openai model with the img and text
+  const response = await generateResponse(req.file?.path, req.body.userText);
+
+  // return the model's result as JSON
+  res.send(`Response from OpenAI: ${response}`);
 });
 
 app.listen(3000, () => {
