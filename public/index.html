@@ -41,6 +41,8 @@
     height: 400px;
     background-color: #0c0c0c;
     padding: 1rem;
+    overflow: auto;
+    white-space: pre-wrap;
   }
   #submitForm {
     padding: 1rem;
@@ -96,7 +98,8 @@
   const form = document.querySelector('#myForm');
   const imageInput = document.querySelector('#imageInput');
   const imageSelectedDisplay = document.querySelector("#imageSelectedDisplay");
-
+  const responseContent = document.querySelector("#responseContent");
+  const submitBtn = document.querySelector("#submitBtn");
 
   // update file label if input changes
   imageInput.addEventListener('change', (e) => {
@@ -106,31 +109,28 @@
     }
   })
 
-
+  // main form handler
   form.addEventListener('submit', async (e) => {
     e.preventDefault(); // stop page reload
+
+    responseContent.textContent = 'Thinking...';
+    submitBtn.disabled = true;
 
     // grabs all inputs using their 'name'
     const formData = new FormData(form);
     console.log('formData', Object.fromEntries(formData));
 
     // check if inputs are valid, set error msg if not
-    let response;
     try {
-      response = await fetch('/api/generate-response', {
+      const response = await fetch('/api/generate-response', {
         method: 'POST',
         body: formData
       });
+      responseContent.textContent = await response.text();
     } catch (err) {
-      console.error('Error: ', err);
-    }
-
-    let body;
-    try {
-      body = await response.body;
-      console.log('body', body)
-    } catch (err) {
-      console.log('body catch', err)
+      responseContent.textContent = `Request failed: ${err}`
+    } finally {
+      submitBtn.disabled = false;
     }
 
   })
