@@ -11,11 +11,11 @@ const app = express();
 app.use(express.static('public'));
 const upload = multer({dest: 'uploads/'})
 
-app.post('/api/generate-response', upload.single('fileUpload'), async (req, res) => {
+app.post('/api/generate-response', upload.single('imageInput'), async (req, res) => {
   console.log('request body', req.body, 'request file', req.file);
 
   // call openai model with the img and text
-  const response = await generateResponse(req.file?.path, req.body.userText);
+  const response = await generateResponse(req.file?.path, req.body.textInput);
 
   // return the model's result as JSON
   res.send(`Response from OpenAI: ${response}`);

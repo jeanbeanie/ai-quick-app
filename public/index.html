@@ -47,9 +47,9 @@
     justify-self: center;
     width: 100%;
   }
-  #fileUploadDisplay {display: inline-flex}
+  #imageInputDisplay {display: inline-flex}
   /*hide default ugly file upload btn*/
-  #fileUpload {display:none;}
+  #imageInput {display:none;}
   #submitBtn {float:right;}
   footer {
     margin-top: 2rem;
@@ -65,17 +65,20 @@
         id="myForm" 
         enctype="multipart/form-data" 
       >
-        <textarea name="textUpload" placeholder="Enter your idea about the so and so here..."></textarea>
+        <textarea 
+          name="textInput" 
+          placeholder="Enter your idea about the so and so here..."
+        ></textarea>
 
-        <div id="fileUploadDisplay">
-          <label for="fileUpload" class="custom-btn">Select img</label>
+        <div id="imageInputDisplay">
+          <label for="imageInput" class="custom-btn">Select img</label>
           <input
             accept="image/png, image/jpeg"
             type="file" 
-            id="fileUpload" 
-            name="fileUpload"
+            id="imageInput" 
+            name="imageInput"
           />
-          <p id="fileNameLabel">No file selected</p>
+          <p id="imageSelectedDisplay">No file selected</p>
         </div>
 
         <button class="custom-btn" id="submitBtn" type="submit">Submit your image!</button>
@@ -91,15 +94,15 @@
   console.log('script loaded!');
 
   const form = document.querySelector('#myForm');
-  const fileUpload = document.querySelector('#fileUpload');
-  const fileNameLabel = document.querySelector("#fileNameLabel");
+  const imageInput = document.querySelector('#imageInput');
+  const imageSelectedDisplay = document.querySelector("#imageSelectedDisplay");
 
 
   // update file label if input changes
-  fileUpload.addEventListener('change', (e) => {
+  imageInput.addEventListener('change', (e) => {
     // check if file was added
-    if(fileUpload.files.length > 0){
-      fileNameLabel.textContent = fileUpload.files[0].name
+    if(imageInput.files.length > 0){
+      imageSelectedDisplay.textContent = imageInput.files[0].name
     }
   })
 
