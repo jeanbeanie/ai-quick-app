@@ -1,5 +1,6 @@
 import OpenAI from 'openai';
 import { readFile } from 'node:fs/promises';
+import { MODEL, INSTRUCTIONS, buildPrompt } from './config';
 
 const client = new OpenAI();
 
@@ -9,7 +10,8 @@ export default async function generateResponse (imageFile, userText){
   const dataUrl = `data:${imageFile.mimetype};base64,${base64}`;
 
   const response = await client.responses.create({
-    model: "gpt-4o-mini",
+    model: MODEL,
+    instructions: INSTRUCTIONS,
     input: [
       {
         role: "user",
@@ -21,7 +23,7 @@ export default async function generateResponse (imageFile, userText){
           },
           {
             type: "input_text",
-            text: "What do you see in this image? " + userText,
+            text: buildPrompt(userText),
           },
         ],
       },

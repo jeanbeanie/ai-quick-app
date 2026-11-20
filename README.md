@@ -34,15 +34,17 @@ OPENAI_API_KEY=your-key-here
 pnpm dev
 ```
 
-Then open http://localhost:3000.
+Then open http://localhost:3000. To use a different port, set `PORT` in `.env`.
 
 ## Make it your own
 
 | To change | Edit |
 |---|---|
-| The model or the prompt sent to OpenAI | `generateResponse.js` |
+| The model, instructions or prompt sent to OpenAI | `config.ts` |
+| How the image and prompt are sent to OpenAI | `generateResponse.js` |
 | The API route and upload handling | `server.ts` |
 | Page text, layout and styles | `public/index.html` |
+| What the page does on submit | `public/script.js` |
 
 ## Notes
 
