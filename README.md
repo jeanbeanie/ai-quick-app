@@ -47,7 +47,7 @@ Then open http://localhost:3000.
 ## Notes
 
 - Images you upload are sent to OpenAI. Every request is billed to your API key.
-- There is no login, rate limit, or upload size limit. Add them before putting the app on the public internet.
+- There is no login or rate limit. Uploads are limited to 10 MB, allowed types PNG or JPEG. Add login and rate limiting before putting the app on the public internet.
 - Keep your `.env` file private. It is already listed in `.gitignore`.
 
 ## License
