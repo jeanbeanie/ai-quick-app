@@ -69,6 +69,8 @@
       >
         <textarea 
           name="textInput" 
+          id="textInput"
+          aria-label="Text to go with your image"
           placeholder="Add some text to go with your image (optional)..."
         ></textarea>
 
@@ -86,53 +88,9 @@
         <button class="custom-btn" id="submitBtn" type="submit">Submit!</button>
       </form>
     </div>
+    <footer>
+      2026 Jeane Ramos
+    </footer>
+    <script src="/script.js"></script>
   </body>
-  <footer>
-    2026 Jeane Ramos
-  </footer>
 </html>
-
-<script>
-  console.log('script loaded!');
-
-  const form = document.querySelector('#myForm');
-  const imageInput = document.querySelector('#imageInput');
-  const imageSelectedDisplay = document.querySelector("#imageSelectedDisplay");
-  const responseContent = document.querySelector("#responseContent");
-  const submitBtn = document.querySelector("#submitBtn");
-
-  // update file label if input changes
-  imageInput.addEventListener('change', (e) => {
-    // check if file was added
-    if(imageInput.files.length > 0){
-      imageSelectedDisplay.textContent = imageInput.files[0].name
-    }
-  })
-
-  // main form handler
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault(); // stop page reload
-
-    responseContent.textContent = 'Thinking...';
-    submitBtn.disabled = true;
-
-    // grabs all inputs using their 'name'
-    const formData = new FormData(form);
-    console.log('formData', Object.fromEntries(formData));
-
-    // check if inputs are valid, set error msg if not
-    try {
-      const response = await fetch('/api/generate-response', {
-        method: 'POST',
-        body: formData
-      });
-      responseContent.textContent = await response.text();
-    } catch (err) {
-      responseContent.textContent = `Request failed: ${err}`
-    } finally {
-      submitBtn.disabled = false;
-    }
-
-  })
-  
-</script>
