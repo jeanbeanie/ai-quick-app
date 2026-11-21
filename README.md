@@ -46,6 +46,26 @@ Then open http://localhost:3000. To use a different port, set `PORT` in `.env`.
 | Page text, layout and styles | `public/index.html` |
 | What the page does on submit | `public/script.js` |
 
+## API
+
+The page sends a `multipart/form-data` `POST` to `/api/generate-response` with an `imageInput` file (PNG or JPEG) and an optional `textInput` string. Every response is JSON:
+
+| Status | Body | When |
+|---|---|---|
+| 200 | `{ "text": "..." }` | The model answered |
+| 400 | `{ "error": "Please select a PNG or JPEG image!" }` | No file, or not a PNG or JPEG |
+| 400 | `{ "error": "Invalid upload." }` | The file was sent under a field name other than `imageInput` |
+| 413 | `{ "error": "Image is too large (max 10MB)." }` | The file is over the size limit (`MAX_IMAGE_BYTES` in `server.ts`) |
+| 500 | `{ "error": "Something went wrong generating the response." }` | The OpenAI request failed, details are in the server log |
+
+Example:
+
+```sh
+curl -F "textInput=What colour is this?" \
+     -F "imageInput=@photo.jpg;type=image/jpeg" \
+     http://localhost:3000/api/generate-response
+```
+
 ## Notes
 
 - Images you upload are sent to OpenAI. Every request is billed to your API key.
