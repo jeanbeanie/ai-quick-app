@@ -26,17 +26,17 @@ const upload = multer({
 app.post('/api/generate-response', upload.single('imageInput'), async (req, res) => {
 
   if(!req.file) {
-    res.status(400).send("Please select a PNG or JPEG image!");
+    res.status(400).json({ error: "Please select a PNG or JPEG image!"});
     return;
   }
 
   // call openai model with the img and text
   try {
     const text = await generateResponse(req.file, req.body.textInput);
-    res.send(text);
+    res.json({text});
   } catch (err) {
     console.error(err);
-    res.status(500).send('Something went wrong generating the response.');
+    res.status(500).json({error: 'Something went wrong generating the response.'});
   } finally {
     await unlink(req.file.path).catch(console.error);
   }
@@ -46,9 +46,9 @@ app.post('/api/generate-response', upload.single('imageInput'), async (req, res)
 app.use((err:unknown, _req:Request, res:Response, next:NextFunction) => {
   if(err instanceof multer.MulterError) {
     const status = err.code === 'LIMIT_FILE_SIZE' ? 413 : 400;
-    res.status(status).send(
-      err.code === 'LIMIT_FILE_SIZE' ? 'Image is too large (max 10MB).' : 'Invalid upload.'
-    );
+    res.status(status).json({
+      error: err.code === 'LIMIT_FILE_SIZE' ? 'Image is too large (max 10MB).' : 'Invalid upload.'
+    });
     return;
   } // pass non-multer errors on to the Express default handler
   next(err);

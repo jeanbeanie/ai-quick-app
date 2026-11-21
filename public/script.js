@@ -30,7 +30,10 @@ form.addEventListener('submit', async (e) => {
       method: 'POST',
       body: formData
     });
-    responseContent.textContent = await response.text();
+    const data = await response.json().catch(() => ({}));
+    responseContent.textContent = response.ok 
+      ? data.text 
+      : data.error ?? 'Something went wrong.';
   } catch (err) {
     responseContent.textContent = `Request failed: ${err}`
   } finally {
